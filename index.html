@@ -4,38 +4,32 @@
     <meta charset="UTF-8"/>
     <link rel="icon" type="image/svg+xml" href="/vite.svg"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <script type="module" src="src/main.js"></script>
     <title>Llm</title>
 </head>
-<body class="page">
+<body id="body" class="page initial">
 
 <header class="header">
     <img alt="logo" id="logo">
     <img alt="profile" id="profileImg">
+
+<!--    <img src="https://ik.imagekit.io/arginp/Llm/Logo.png?updatedAt=1743157791193" alt="logo" id="logo">-->
+<!--    <img src="https://ik.imagekit.io/arginp/Llm/Profile.png?updatedAt=1743157791240" alt="profile" id="profileImg">-->
 </header>
 
 <main class="content">
-    <div class="dialog width-container">
-        <div class="message user-message">
-            <span>I need help with understanding machine learning concepts.</span>
-        </div>
-        <div class="message assistant-message">
-            <span>
-                I'd be happy to help you understand machine learning concepts.
-                Let's start with the basics. What specific aspects would you like to learn about?
-            </span>
-        </div>
+    <div id="dialog" class="dialog width-container">
     </div>
 </main>
 
 <footer class="footer">
     <div class="form width-container">
         <form class="input-form">
-            <input type="text" class="input-field" placeholder="Type your message here...">
-            <button type="submit" class="submit-bnt">Send</button>
+            <input id="inputField" type="text" class="input-field" placeholder="Type your message here...">
+            <button id="inputBtn" type="submit" class="submit-bnt">Send</button>
         </form>
     </div>
 </footer>
 
-<script type="module" src="src/main.js"></script>
 </body>
 </html>
