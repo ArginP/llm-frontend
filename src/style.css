@@ -30,7 +30,7 @@ input {
         display: flex;
         justify-content: space-between;
         padding: 12px 32px;
-        border-bottom: 1px solid #E5E7EB
+        border-bottom: 1px solid #E5E7EB;
     }
 
     .content {
@@ -38,8 +38,7 @@ input {
         background: #F9FAFB;
         overflow: auto;
         scrollbar-gutter: auto;
-        /* scroll-behavior: smooth; не работает со скриптом автоскролла */
-        flex-direction: column-reverse;
+        scroll-behavior: smooth; /* не работает со скриптом автоскролла */
 
         .dialog {
             padding-top: 27px;
@@ -129,24 +128,16 @@ input {
 /* --- Стили при изначальной загрузке страницы с пустым чатом --- */
 .page.initial {
 
-
     .header {
         border: none;
-        /*transition: all 5000ms ease;*/
     }
 
     .content {
         display: none;
-        /*transition: all 5000ms ease;*/
     }
 
     .footer {
         flex-grow: 1; /* чтобы футер занял все свободное пространство страницы */
         border: none;
-        /*transition: all 5000ms ease;*/
-
-        .form {
-
-        }
     }
 }

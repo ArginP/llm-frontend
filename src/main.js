@@ -34,22 +34,27 @@ const assistantMessageHtml = (inputValue) => {
 inputBtn.addEventListener('click', event => {
     event.preventDefault();
 
-    // Удержание скролла чата в нижнем положении:
-    const isScrolledToBottom = dialogWrapper.scrollHeight - dialogWrapper.clientHeight <= dialogWrapper.scrollTop + 1
+    if (inputField.value.trim()) {
 
-    const newMessageNode = document.createElement('span');
-    newMessageNode.innerHTML = userMessageHtml(inputField.value);
+        // Удержание скролла чата в нижнем положении:
+        const isScrolledToBottom = dialogWrapper.scrollHeight - dialogWrapper.clientHeight <= dialogWrapper.scrollTop + 1
 
-    dialog.appendChild(newMessageNode);
+        const newMessageNode = document.createElement('span');
+        newMessageNode.innerHTML = userMessageHtml(inputField.value);
 
-    const newReplyNode = document.createElement('span');
-    newReplyNode.innerHTML = assistantMessageHtml(`Ищу ответ на ${inputField.value}`);
+        dialog.appendChild(newMessageNode);
 
-    dialog.appendChild(newReplyNode);
+        const newReplyNode = document.createElement('span');
+        newReplyNode.innerHTML = assistantMessageHtml(`Ищу ответ на ${inputField.value}`);
 
-    body.classList.remove('initial')
+        dialog.appendChild(newReplyNode);
 
-    if (isScrolledToBottom) { // Только если чат уже в нижнем положении
-        dialogWrapper.scrollTop = dialogWrapper.scrollHeight - dialogWrapper.clientHeight
+        body.classList.remove('initial')
+
+        if (isScrolledToBottom) { // Только если чат уже в нижнем положении
+            dialogWrapper.scrollTop = dialogWrapper.scrollHeight - dialogWrapper.clientHeight
+        }
+
+        inputField.value = '';
     }
 })
