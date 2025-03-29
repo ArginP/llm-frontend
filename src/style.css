@@ -39,6 +39,7 @@ input {
         overflow: auto;
         scrollbar-gutter: auto;
         scroll-behavior: smooth; /* не работает со скриптом автоскролла */
+        transition: height 400ms 200ms ease-in-out;
 
         .dialog {
             padding-top: 27px;
@@ -77,6 +78,8 @@ input {
     .footer {
         border-top: 1px solid #E5E7EB;
         display: flex;
+        height: 79px;
+        transition: height 400ms 200ms ease-in-out;
 
         .form {
             display: flex;
@@ -84,7 +87,8 @@ input {
             padding-top: 16px;
             padding-bottom: 16px;
             gap: 16px;
-            align-self: center;
+            align-self: flex-end;
+            transition: transform 400ms 200ms ease-in-out;
 
             .input-form {
                 display: flex;
@@ -133,11 +137,15 @@ input {
     }
 
     .content {
-        display: none;
+        height: 0;
     }
 
     .footer {
-        flex-grow: 1; /* чтобы футер занял все свободное пространство страницы */
+        height: 100%;
         border: none;
+
+        .form {
+            transform: translateY(-50vh);
+        }
     }
 }
