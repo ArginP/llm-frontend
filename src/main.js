@@ -37,19 +37,13 @@ inputBtn.addEventListener('click', event => {
     if (inputField.value.trim()) {
 
         // Удержание скролла чата в нижнем положении:
-        const isScrolledToBottom = dialogWrapper.scrollHeight - dialogWrapper.clientHeight <= dialogWrapper.scrollTop + 1
+        const isScrolledToBottom = dialogWrapper.scrollHeight - dialogWrapper.clientHeight <= dialogWrapper.scrollTop + 10
 
-        const newMessageNode = document.createElement('span');
-        newMessageNode.innerHTML = userMessageHtml(inputField.value);
-
-        dialog.appendChild(newMessageNode);
-
-        const newReplyNode = document.createElement('span');
-        newReplyNode.innerHTML = assistantMessageHtml(`Ищу ответ на ${inputField.value}`);
-
-        dialog.appendChild(newReplyNode);
+        dialog.innerHTML = dialog.innerHTML + userMessageHtml(inputField.value);
 
         body.classList.remove('initial')
+
+        dialog.innerHTML = dialog.innerHTML + assistantMessageHtml('response');
 
         if (isScrolledToBottom) { // Только если чат уже в нижнем положении
             dialogWrapper.scrollTop = dialogWrapper.scrollHeight - dialogWrapper.clientHeight

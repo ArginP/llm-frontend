@@ -38,7 +38,7 @@ input {
         background: #F9FAFB;
         overflow: auto;
         scrollbar-gutter: auto;
-        scroll-behavior: smooth; /* не работает со скриптом автоскролла */
+        scroll-behavior: smooth;
         transition: height 400ms 200ms ease-in-out;
 
         .dialog {
