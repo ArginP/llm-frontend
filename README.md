@@ -17,3 +17,7 @@ Practice project
 - Прилипающая к последнему сообщению прокрутка окна диалога
 - Обращение к бэкенду, обработка ответа и вывод его в чат
 - Кроссбраузерность via postcss autoprefixer
+
+## [Статический деплой на GitHub Pages via GitHub Actions](https://arginp.github.io/llm-frontend/)
+ 
+   
