@@ -12,5 +12,6 @@ export default defineConfig({
                 autoprefixer({}) // add options if needed
             ],
         }
-    }
+    },
+    base: '/llm-frontend/'
 })
