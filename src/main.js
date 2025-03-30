@@ -1,19 +1,11 @@
 import './style.css';
 import 'https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js';
-import logoSrc from './assets/logo.png';
-import profileImgSrc from './assets/profile.png';
-
-const logoPage = document.getElementById('logo');
-const profileImgPage = document.getElementById('profileImg');
 
 const body = document.getElementById('body');
 const dialog = document.getElementById('dialog');
 const dialogWrapper = dialog.parentNode
 const inputField = document.getElementById('inputField');
 const inputBtn = document.getElementById('inputBtn');
-
-logoPage.src = logoSrc;
-profileImgPage.src = profileImgSrc;
 
 const userMessageHtml = (inputValue) => {
     return `
