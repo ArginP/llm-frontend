@@ -39,16 +39,21 @@ inputBtn.addEventListener('click', event => {
         // Удержание скролла чата в нижнем положении:
         const isScrolledToBottom = dialogWrapper.scrollHeight - dialogWrapper.clientHeight <= dialogWrapper.scrollTop + 10
 
-        dialog.innerHTML = dialog.innerHTML + userMessageHtml(inputField.value);
+        const query =  inputField.value
 
+        dialog.innerHTML = dialog.innerHTML + userMessageHtml(query);
+        inputField.value = '';
         body.classList.remove('initial')
 
-        dialog.innerHTML = dialog.innerHTML + assistantMessageHtml('response');
+        $.post("https://intensive-backend-technium.replit.app/ask", {
+            prompt: `${query}`,
+        }, function(data) {
+            const response = data.answer
+            dialog.innerHTML = dialog.innerHTML + assistantMessageHtml(response);
+        })
 
         if (isScrolledToBottom) { // Только если чат уже в нижнем положении
             dialogWrapper.scrollTop = dialogWrapper.scrollHeight - dialogWrapper.clientHeight
         }
-
-        inputField.value = '';
     }
 })
