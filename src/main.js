@@ -7,6 +7,18 @@ const dialogWrapper = dialog.parentNode
 const inputField = document.getElementById('inputField');
 const inputBtn = document.getElementById('inputBtn');
 
+const messages = [];
+
+const scrollHold = (isScrolledToBottom) => {
+    if (isScrolledToBottom) {  // Удержание скролла чата в нижнем положении
+        dialogWrapper.scrollTop = dialogWrapper.scrollHeight - dialogWrapper.clientHeight;
+    }
+}
+
+const updateScrollPosition = () => {
+    return dialogWrapper.scrollTop >= dialogWrapper.scrollHeight - dialogWrapper.clientHeight - 70;
+}
+
 const userMessageHtml = (inputValue) => {
     return `
     <div class="message user-message">
@@ -27,25 +39,49 @@ inputBtn.addEventListener('click', event => {
     event.preventDefault();
 
     if (inputField.value.trim()) {
+        // Проверка того, что скролл чата находится в нижнем положении:
+        let isScrolledToBottom;
 
-        // Удержание скролла чата в нижнем положении:
-        const isScrolledToBottom = dialogWrapper.scrollHeight - dialogWrapper.clientHeight <= dialogWrapper.scrollTop + 10
-
-        const query =  inputField.value
-
-        dialog.innerHTML = dialog.innerHTML + userMessageHtml(query);
+        const query = inputField.value
         inputField.value = '';
         body.classList.remove('initial')
 
-        $.post("https://intensive-backend-technium.replit.app/ask", {
-            prompt: `${query}`,
-        }, function(data) {
-            const response = data.answer
-            dialog.innerHTML = dialog.innerHTML + assistantMessageHtml(response);
+        isScrolledToBottom = updateScrollPosition();
+        dialog.innerHTML = dialog.innerHTML + userMessageHtml(query);
+        scrollHold(isScrolledToBottom);
+        messages.push({
+            role: 'user',
+            text: query,
         })
 
-        if (isScrolledToBottom) { // Только если чат уже в нижнем положении
-            dialogWrapper.scrollTop = dialogWrapper.scrollHeight - dialogWrapper.clientHeight
+        // $.post("https://intensive-backend-technium.replit.app/ask", {
+        //     prompt: `${query}`,
+        // }, function(data) {
+        //     const response = data.answer
+        //     dialog.innerHTML = dialog.innerHTML + assistantMessageHtml(response);
+        // })
+
+        const talk = function (data, success) {
+            return $.ajax({
+                type: 'POST',
+                contentType: 'application/json',
+                url: 'https://intensive-backend-technium.replit.app/talk',
+                data: JSON.stringify({
+                    messages: data
+                }),
+                success: success,
+            })
         }
+
+        talk(messages, function (data) {
+            const response = data.answer
+            isScrolledToBottom = updateScrollPosition();
+            dialog.innerHTML = dialog.innerHTML + assistantMessageHtml(response);
+            scrollHold(isScrolledToBottom);
+            messages.push({
+                role: 'assistant',
+                text: response,
+            })
+        })
     }
 })
