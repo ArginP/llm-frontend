@@ -108,7 +108,7 @@ resetBtn.addEventListener('click', event => {
     event.preventDefault();
 
     messages = [];
-    setMessagesToLocalStorage(messages);
+    localStorage.removeItem('messages');
     inputField.value = '';
     body.classList.add('initial')
 })
