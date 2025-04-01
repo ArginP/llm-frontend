@@ -124,6 +124,18 @@ input {
                     height: 100%;
                     width: 64px;
                 }
+
+                .submit-bnt:hover {
+                    background: #2d2d2d;
+                }
+
+                .reset-bnt {
+                    background-color: midnightblue;
+                }
+
+                .reset-bnt:hover {
+                    background-color: #232391;
+                }
             }
         }
     }

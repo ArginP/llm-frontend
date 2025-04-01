@@ -6,8 +6,9 @@ const dialog = document.getElementById('dialog');
 const dialogWrapper = dialog.parentNode
 const inputField = document.getElementById('inputField');
 const inputBtn = document.getElementById('inputBtn');
+const resetBtn = document.getElementById('resetBtn');
 
-const messages = JSON.parse(localStorage.getItem('messages')) || [];
+let messages = JSON.parse(localStorage.getItem('messages')) || [];
 
 const scrollHold = (isScrolledToBottom) => {
     if (isScrolledToBottom) {  // Удержание скролла чата в нижнем положении
@@ -101,4 +102,13 @@ inputBtn.addEventListener('click', event => {
             setMessagesToLocalStorage(messages);
         })
     }
+})
+
+resetBtn.addEventListener('click', event => {
+    event.preventDefault();
+
+    messages = [];
+    setMessagesToLocalStorage(messages);
+    inputField.value = '';
+    body.classList.add('initial')
 })
