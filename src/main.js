@@ -7,7 +7,7 @@ const dialogWrapper = dialog.parentNode
 const inputField = document.getElementById('inputField');
 const inputBtn = document.getElementById('inputBtn');
 
-const messages = [];
+const messages = JSON.parse(localStorage.getItem('messages')) || [];
 
 const scrollHold = (isScrolledToBottom) => {
     if (isScrolledToBottom) {  // Удержание скролла чата в нижнем положении
@@ -17,6 +17,10 @@ const scrollHold = (isScrolledToBottom) => {
 
 const updateScrollPosition = () => {
     return dialogWrapper.scrollTop >= dialogWrapper.scrollHeight - dialogWrapper.clientHeight - 70;
+}
+
+const setMessagesToLocalStorage = (messages) => {
+    localStorage.setItem('messages', JSON.stringify(messages));
 }
 
 const userMessageHtml = (inputValue) => {
@@ -33,6 +37,17 @@ const assistantMessageHtml = (inputValue) => {
         <span>${inputValue}</span>
     </div>
     `
+}
+
+if (messages.length > 0) {
+    body.classList.remove('initial')
+    messages.forEach((message) => {
+        if (message.role === 'user') {
+            dialog.innerHTML = dialog.innerHTML + userMessageHtml(message.text);
+        } else if (message.role === 'assistant') {
+            dialog.innerHTML = dialog.innerHTML + assistantMessageHtml(message.text);
+        }
+    })
 }
 
 inputBtn.addEventListener('click', event => {
@@ -53,6 +68,7 @@ inputBtn.addEventListener('click', event => {
             role: 'user',
             text: query,
         })
+        setMessagesToLocalStorage(messages);
 
         // $.post("https://intensive-backend-technium.replit.app/ask", {
         //     prompt: `${query}`,
@@ -82,6 +98,7 @@ inputBtn.addEventListener('click', event => {
                 role: 'assistant',
                 text: response,
             })
+            setMessagesToLocalStorage(messages);
         })
     }
 })
